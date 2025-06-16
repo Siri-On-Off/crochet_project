@@ -1,0 +1,11 @@
+﻿;;;;;;
+ARMS;;;;;;
+from;-;to;Crochet;x;times;sum
+1;;;magic ring sc;x;5;(5)
+2;;;inc;x;5;(10)
+3;;;(sc 4, dec, sc 4);x;1;(9)
+4;;;sc around;x;1;(9)
+5;;;(dec, sc 7);x;1;(8)
+6;-;7;sc around;x;2;(8)
+8;;;(sc 3, dec, sc 3);x;1;(7)
+;;;;;;

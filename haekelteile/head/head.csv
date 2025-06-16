@@ -1,0 +1,21 @@
+﻿HEAD;;;;;;
+from;-;to;Crochet;x;times;sum
+1;;;magic ring sc;x;6;(6)
+2;;;inc;x;6;(12)
+3;;;(inc, sc 1);x;6;(18)
+4;;;(sc1, inc, sc1);x;6;(24)
+5;;;sc around;x;1;(24)
+6;;;(inc, sc 3);x;6;(30)
+7;-;8;sc around;x;2;(30)
+9;;;(sc 2, inc, sc 2) x 2, (sc 3, inc, sc 2),  (sc 2, inc, sc 2) x 1, (sc 1, inc, sc 2) x 1;x;6;(36)
+10;-;11;sc around;x;2;(36)
+12;;;(sc 2, dec, sc 2);x;6;(30)
+13;;;(dec, sc 3);x;6;(24)
+14;;;(sc 1, dec, sc 1);x;6;(18)
+15;;;(dec, sc 1);x;6;(12)
+;;;;;;
+Augen :;;;;;;
+von oben 8 Rounds;;;;;;
+zwischeneinander 6 stitches;;;;;;
+da, wo Augen hinkommen, über 2. & 3.  inc. von Round 9;;;;;;
+;;;;;;

@@ -1,0 +1,14 @@
+﻿;;;;;;
+LEGS;;;;;;
+from;-;to;Crochet;x;times;sum
+1;;;sc around;x;1;(8)
+2;;;(inc, sc 7);x;1;(9)
+3;;;(sc 4, inc, sc 4);x;1;(10)
+4;;;sc around;x;1;(10)
+5;;;(inc, sc 9);x;1;(11)
+6;;;(sc 5, inc, sc 5);x;1;(12)
+7;;;dec;x;6;(6)
+;;;;;;
+Body:;;;;;;
+Leave 2 stitches in the middle;;;;;;
+;;;;;;
