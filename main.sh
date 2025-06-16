@@ -79,12 +79,10 @@ function addPart() {
                 file="${parts[$index]}"
                 filename=$(basename "$file")
                 
-                #Remove the UTF-8 Byte Order Mark (BOM) if present on the first line of the file.
                 content=$(sed '1 s/^\xEF\xBB\xBF//' "$file" | \
-                    #  Escape all double quotes (") by doubling them to "".
                     sed 's/"/""/g' | \
-                    # Detect if the last field in the line is a number in parentheses, like (16), and wrap it in quotes: "(16)".
-                sed 's/;\(([^)]*)\)$/;"\1"/')
+                    sed -E 's/;\(?-?([0-9]+)\)?$/;="(\1)"/'
+                )
                 
                 echo "$content" >> "$target_file"
                 echo -e "💾 Saved \"$filename\" to pattern."
