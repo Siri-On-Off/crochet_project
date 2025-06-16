@@ -1,0 +1,23 @@
+--- KOPF ---
+Round 1         magic ring sc	x	6       (6)
+Round 2         inc	x	6	                (12)
+Round 3			(inc, sc 1)	x	6	        (18)
+Round 4			(sc1, inc, sc1)	x	6	    (24)
+Round 5			sc around	x	1	        (24)
+Round 6			(inc, sc 3)	x	6	        (30)
+Round 7	- 8     sc around	x	2	        (30)
+Round 9			(sc 2, inc, sc 2) x 2, 
+                (sc 3, inc, sc 2) x 1,  
+                (sc 2, inc, sc 2) x 1, 
+                (sc 1, inc, sc 2) x 1       (36)
+Round 10 - 11   sc around	x	2	        (36)
+Round 12        (sc 2, dec, sc 2)	x	6	(30)
+Round 13        (dec, sc 3)	x	6	        (24)
+Round 14        (sc 1, dec, sc 1)	x	6	(18)
+Round 15		(dec, sc 1)	x	6	        (12)
+
+--- EYES ---
+After Round 8				
+6 stitches	inbtween
+Place eyes above 2nd and 3rd increases from Round 9			
+
