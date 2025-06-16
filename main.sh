@@ -18,7 +18,7 @@ else
     echo -e "ℹ️  Deletion skipped.\n\n"
 fi
 
-read -p "If you want to skip or cancel: s = Skip, c = Cancel, N = No) " choice
+read -p "If you want to skip or cancel (s = Skip, c = Cancel, N = No) :" choice
 
 if [[ "$choice" =~ ^[Cc]$ ]]; then
     echo "🛑 Canceled. No pattern created."
