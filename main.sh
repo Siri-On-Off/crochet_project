@@ -1,78 +1,104 @@
-# bash main.sh
+#!/bin/bash
 
-echo -e "🧶 Häkelanleitungs-Komponierer 🧵\n"
+# Option to delete all existing patterns
+read -p "Do you want to delete all existing patterns in the 'patterns' folder? (y/N) " delete_choice
+if [[ "$delete_choice" =~ ^[Yy]$ ]]; then
+    echo -e "⚠️  This will permanently delete all CSV files in 'patterns/'."
+    read -p "❓  Are you absolutely sure? Type 'yes' to confirm: " confirm_delete
+    
+    if [[ "$confirm_delete" == "yes" ]]; then
+        rm -f patterns/*.csv
+        echo -e "🗑️  All pattern files have been deleted.\n\n"
+        elif [[ -z "$confirm_delete" ]]; then
+        echo -e "❌ Deletion canceled (no input).\n\n"
+    else
+        echo -e "❌ Invalid input: \"$confirm_delete\". Deletion aborted.\n\n"
+    fi
+else
+    echo -e "ℹ️  Deletion skipped.\n\n"
+fi
 
-# Ziel-Datei
-read -p "Name des fertigen Wesens: " name
-ziel_datei="anleitungen/${name// /_}_anleitung.csv"
-> "$ziel_datei"
 
-# Teil-Auswahl-Funktion
+# Create patterns directory if it doesn't exist
+mkdir -p patterns
+# Welcome message
+echo -e "🧶 Put together your crochet pattern 🧵\n"
+
+# Target file
+read -p "Name of your new little friend: " name
+target_file="patterns/${name// /_}_pattern.csv"
+touch "$target_file"
+
+
+
+# Part selection function
 function addPart() {
-    typ=$1
-    typ_lowercase="${typ,,}"
-    verzeichnis="haekelteile"
+    type=$1
+    type_lowercase="${type,,}"
+    folder="parts"
     
     echo ""
-    case "$typ_lowercase" in
-        kopf) symbol="😊" ;;
-        koerper) symbol="🧸" ;;
-        beine) symbol="🦵" ;;
-        schwaenzchen) symbol="🪱" ;;
+    case "$type_lowercase" in
+        head) symbol="🧠" ;;
+        ears) symbol="👂" ;;
+        nose) symbol="👃" ;;
+        arms) symbol="💪" ;;
+        body) symbol="🧸" ;;
+        legs) symbol="🦵" ;;
+        tail) symbol="🐾" ;;
         *) symbol="🔸" ;;
     esac
     
-    echo "$symbol Verfügbare $typ:"
-    echo "Suche Dateien in: $verzeichnis/${typ_lowercase}/*.csv"
-    teile=($verzeichnis/${typ_lowercase}/*.csv)
-    echo "Gefundene Dateien: ${#teile[@]}"
+    echo "$symbol Available $type:"
+    echo "Looking for files in: $folder/${type_lowercase}/*.csv"
+    parts=($folder/${type_lowercase}/*.csv)
+    echo "Found files: ${#parts[@]}"
     
-    for i in "${!teile[@]}"; do
-        echo "$((i+1))) $(basename "${teile[$i]}")"
+    for i in "${!parts[@]}"; do
+        echo "$((i+1))) $(basename "${parts[$i]}")"
     done
     
     while true; do
         echo ""
-        read -p "Welche $typ möchtest du verwenden? (Zahl, q = Überspringen, a = Abbrechen) " wahl
+        read -p "Which $type do you want to use? (Number, s = Skip, c = Cancel) " choice
         
-        if [[ "$wahl" =~ ^[Aa]$ ]]; then
-            echo "🛑 Vorgang abgebrochen. Keine Anleitung erstellt."
-            rm -f "$ziel_datei"
+        if [[ "$choice" =~ ^[Cc]$ ]]; then
+            echo "🛑 Canceled. No pattern created."
+            rm -f "$target_file"
             exit 1
         fi
         
-        if [[ "$wahl" =~ ^[Qq]$ ]]; then
-            echo "⏭️  $typ wird übersprungen."
+        if [[ "$choice" =~ ^[Ss]$ ]]; then
+            echo "⏭️  Skipped $type."
             break
         fi
         
-        if [[ "$wahl" =~ ^[0-9]+$ ]]; then
-            index=$((wahl-1))
-            if [[ $index -ge 0 && $index -lt ${#teile[@]} ]]; then
-                datei="${teile[$index]}"
-                dateiname=$(basename "$datei")
-                echo "Gewählte Datei: $datei"
-                inhalt=$(<"$datei")
+        if [[ "$choice" =~ ^[0-9]+$ ]]; then
+            index=$((choice-1))
+            if [[ $index -ge 0 && $index -lt ${#parts[@]} ]]; then
+                file="${parts[$index]}"
+                filename=$(basename "$file")
                 
-                # BOM entfernen (falls vorhanden), Inhalt mit Zeilenumbrüchen einlesen
-                inhalt=$(sed '1 s/^\xEF\xBB\xBF//' "$datei")
+                #Remove the UTF-8 Byte Order Mark (BOM) if present on the first line of the file.
+                content=$(sed '1 s/^\xEF\xBB\xBF//' "$file" | \
+                    #  Escape all double quotes (") by doubling them to "".
+                    sed 's/"/""/g' | \
+                    # Detect if the last field in the line is a number in parentheses, like (16), and wrap it in quotes: "(16)".
+                sed 's/;\(([^)]*)\)$/;"\1"/')
                 
-                # Doppelte Anführungszeichen escapen, echte Zeilenumbrüche bleiben erhalten
-                csv_inhalt=$(echo "$inhalt" | sed 's/"/""/g')
-                
-                echo "$csv_inhalt" >> "$ziel_datei"
-                
-                echo -e "💾 Teil \"$dateiname\" gespeichert."
+                echo "$content" >> "$target_file"
+                echo -e "💾 Saved \"$filename\" to pattern."
                 break
+            else
+                echo "❌ Invalid number. Please choose a valid part."
             fi
+        else
+            echo "❌ Invalid input. Enter a number, 's' to skip, or 'c' to cancel."
         fi
-        
-        echo "❌ Ungültige Eingabe. Bitte Zahl eingeben oder 'q' zum Überspringen, 'a' zum Abbrechen."
     done
 }
 
-
-# Auswählen und Einfügen
+# Choose parts
 addPart "head"
 addPart "ears"
 addPart "nose"
@@ -81,15 +107,14 @@ addPart "body"
 addPart "legs"
 addPart "tail"
 
-echo -e "\n✅ Deine Anleitung wurde gespeichert in: $ziel_datei"
+echo -e "\n✅ Your pattern has been saved to: $target_file\n"
 
-# Anleitung öffnen
-echo -e "📖 Öffne die Anleitung in Excel ...\n"
+# Open the pattern
+echo -e "📖 Opening your pattern in Excel...\n"
 
 case "$OSTYPE" in
-    linux*)   libreoffice --calc "$ziel_datei" & ;;
-    darwin*)  open -a "Microsoft Excel" "$ziel_datei" ;;
-    msys*|cygwin*)  start excel.exe "$ziel_datei" ;;
-    *)        echo "⚠️ Dein Betriebssystem wird nicht direkt unterstützt. Bitte öffne die Datei manuell in Excel: $ziel_datei" ;;
+    linux*)   libreoffice --calc "$target_file" & ;;
+    darwin*)  open -a "Microsoft Excel" "$target_file" ;;
+    msys*|cygwin*)  start excel.exe "$target_file" ;;
+    *)        echo "⚠️ Your operating system is not supported. Please open the file manually: $target_file" ;;
 esac
-
