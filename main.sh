@@ -18,15 +18,12 @@ else
     echo -e "ℹ️  Deletion skipped.\n\n"
 fi
 
-read -p "If you want to skip or cancel (s = Skip, c = Cancel, N = No) :" choice
+read -p "Do you want to quit? (y/N) :"
 
 if [[ "$choice" =~ ^[Cc]$ ]]; then
-    echo "🛑 Canceled. No pattern created."
+    echo "🛑 Bye."
     rm -f "$target_file"
     exit 1
-    elif [[ "$choice" =~ ^[Ss]$ ]]; then
-    echo "⏭️  Skipped $type."
-    break
 else
     echo -e "▶️  You chose to continue with the pattern creation.\n\n"
 fi
