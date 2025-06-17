@@ -1,5 +1,5 @@
-﻿;;;;;;
-BODY;;;;;;
+﻿;;;;;;;
+BODY;;;;;;;
 from;-;to;Crochet;x;times;sum
 1;;;(inc, sc 5);x;2;(14)
 2;;;(sc 3, inc, sc 3);x;2;(16)

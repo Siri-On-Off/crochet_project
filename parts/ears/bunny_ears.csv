@@ -1,0 +1,17 @@
+﻿EARS;;;;;;
+from;-;to;Crochet;x;times;sum
+1;;;magic ring sc;x;6;(6)
+2;;;(inc, sc 1);x;3;(9)
+3;;;sc around;x;1;(9)
+4;;;(sc1, inc, sc1);x;3;(12)
+5;;;sc around;x;1;(12)
+6;;;(inc, sc 3);x;3;(15)
+7;-;9;sc around;x;3;(15)
+10;;;(dec, sc 3);x;3;(12)
+11;;;sc around;x;1;(12)
+12;;;(sc 1, dec, sc 1);x;3;(9)
+13;;;sc around;x;1;(9)
+14;;;(dec, sc 1);x;3;(6)
+;;;;;;
+after round 1 and 3;;;;;;
+;;;;;;

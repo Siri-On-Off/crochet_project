@@ -1,11 +1,9 @@
-﻿;;;;;;
-EARS;;;;;;
+﻿EARS;;;;;;
 from;-;to;Crochet;x;times;sum
-1;;;magic ring sc;x;6;(6)
-2;;;inc;x;6;(12)
-3;;;sc around;x;1;(12)
+1;;;magic ring sc;x;6;-6
+2;;;inc;x;6;-12
+3;;;sc around;x;1;-12
 ;;;;;;
 after 2 st and 7th round;;;;;;
 x1234x;;;;;;
 3sc from eyes;;;;;;
-;;;;;;
